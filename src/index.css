@@ -1,0 +1,51 @@
+/* src/index.css */
+
+/* 1) Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
+
+/* 2) Design tokens */
+:root {
+  --color-bg: #f7f8f9;
+  --color-card-bg: #ffffff;
+  --color-primary: #165e4e;
+  --color-secondary: #c59d5f;
+  --color-text: #174c3e;
+  --font-heading: 'Playfair Display', serif;
+  --font-body:    'Open Sans', sans-serif;
+  --font-arabic:  'Amiri', serif;
+  --shadow:       0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* 3) Reset & base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0; padding: 0;
+}
+html, body, #root {
+  height: 100%;
+  background: var(--color-bg);
+  font-family: var(--font-body);
+  color: var(--color-text);
+}
+
+/* 4) App wrapper */
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* 5) Stack cards vertically in fixed order */
+.grid-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* 6) Utility card style (for non-module use) */
+.card {
+  background: var(--color-card-bg);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  padding: 16px;
+}

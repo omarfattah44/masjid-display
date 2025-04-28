@@ -1,0 +1,35 @@
+/* src/components/Announcements.module.css */
+.container {
+    background: var(--color-card-bg);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 16px;
+    margin-bottom: 24px;
+  }
+  
+  .title {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    color: var(--color-primary);
+    margin-bottom: 12px;
+    text-align: center;
+  }
+  
+  /* Simple grid beneath the title */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 12px;
+  }
+  
+  /* Each announcement “card” */
+  .item {
+    background: var(--color-bg);
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    padding: 12px;
+    text-align: left;
+    font-size: 0.95rem;
+    color: var(--color-text);
+  }
+  

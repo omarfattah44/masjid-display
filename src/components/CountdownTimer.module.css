@@ -1,0 +1,19 @@
+/* src/components/CountdownTimer.module.css */
+.container {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+  
+  .counter {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+  }
+  
+  .label {
+    margin-top: 12px;
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    color: var(--color-primary);
+  }
+  

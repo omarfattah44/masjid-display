@@ -1,0 +1,47 @@
+/* src/components/WeatherWidget.module.css */
+.container {
+    position: relative;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 24px 16px;
+    margin-bottom: 24px;
+    color: var(--color-text);
+    overflow: hidden;
+    transition: background 0.5s ease;
+  }
+  
+  /* Day vs. Night backgrounds */
+  .day {
+    background: linear-gradient(to bottom, #87ceeb, #ffffff);
+  }
+  .night {
+    background: linear-gradient(to bottom, #2c3e50, #4ca1af);
+  }
+  
+  /* Icon styling */
+  .icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    color: var(--color-secondary);
+  }
+  
+  /* Location text */
+  .location {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  
+  /* Temperature reading */
+  .temp {
+    font-size: 2.25rem;
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+  
+  /* Condition text */
+  .condition {
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+  

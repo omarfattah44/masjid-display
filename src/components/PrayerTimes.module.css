@@ -1,0 +1,62 @@
+/* src/components/PrayerTimes.module.css */
+
+/* 1) Ensure the card is the tallest */
+.container {
+  padding: 16px;
+  min-height: 400px;            
+  display: flex;
+  flex-direction: column;
+}
+
+/* 2) Title styling */
+.title {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  text-align: center;
+  color: var(--color-primary);
+}
+
+/* 3) Layout exactly five equal columns */
+.list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);  /* five equal-width columns */
+  gap: 16px;                               /* space between each */
+  flex-grow: 1;                            /* fill remaining height */
+  min-width: 0;                            /* allow items to shrink */
+}
+
+/* 4) Individual prayer card */
+.timeCard {
+  background: var(--color-card-bg);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  padding: 12px;
+  text-align: center;
+  transition: border-color 0.3s, box-shadow 0.3s;
+  min-width: 0;                            /* prevent overflow due to content */
+}
+
+/* 5) Icon styling */
+.icon {
+  font-size: 1.5rem;
+  margin-bottom: 8px;
+  color: var(--color-secondary);
+}
+
+/* 6) Prayer name & time with ellipsis on overflow */
+.prayerName,
+.time {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 7) Highlight styles */
+.timeCard.current {
+  border: 2px solid var(--color-primary);
+}
+.timeCard.next {
+  border: 2px solid var(--color-secondary);
+}
+

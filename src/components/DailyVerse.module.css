@@ -1,0 +1,42 @@
+/* src/components/DailyVerse.module.css */
+
+/* 1️⃣ Fade-in keyframes */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0);    }
+  }
+  
+  .container {
+    background: var(--color-card-bg);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 24px;
+    text-align: center;
+    /* apply fade-in on mount */
+    animation: fadeIn 0.8s ease-out;
+  }
+  
+  .arabic {
+    font-family: var(--font-arabic);
+    font-size: 1.8rem;
+    margin-bottom: 16px;
+    direction: rtl;
+    color: var(--color-text);
+    /* animate each time it appears */
+    animation: fadeIn 1s ease-in;
+  }
+  
+  .english {
+    font-size: 1.125rem;
+    margin-bottom: 12px;
+    color: var(--color-text);
+    animation: fadeIn 1s ease-in;
+  }
+  
+  .reference {
+    font-size: 0.9rem;
+    color: var(--color-secondary);
+    animation: fadeIn 1s ease-in;
+  }
+  
