@@ -1,4 +1,3 @@
-/* src/components/Announcements.module.css */
 .container {
     background: var(--color-card-bg);
     border-radius: 8px;
@@ -9,17 +8,20 @@
   
   .title {
     font-family: var(--font-heading);
-    font-size: 1.25rem;
+    font-size: 2rem;
+    font-weight: bold;
     color: var(--color-primary);
-    margin-bottom: 12px;
+    margin-bottom: 20px;
     text-align: center;
   }
   
-  /* Simple grid beneath the title */
+  /* Grid with equal gutters and stretched items */
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 24px;               /* uniform spacing between items */
+    justify-items: stretch;  /* make all items fill their column */
+    align-items: start;
   }
   
   /* Each announcement “card” */
@@ -27,9 +29,9 @@
     background: var(--color-bg);
     border: 1px solid #ddd;
     border-radius: 6px;
-    padding: 12px;
+    padding: 16px;
     text-align: left;
-    font-size: 0.95rem;
+    font-size: 1.75rem;      /* slightly larger text */
+    line-height: 1.2;        /* tighten up the lines */
     color: var(--color-text);
   }
-  

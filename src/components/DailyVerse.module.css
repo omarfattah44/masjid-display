@@ -19,7 +19,7 @@
   
   .arabic {
     font-family: var(--font-arabic);
-    font-size: 1.8rem;
+    font-size: 3rem;
     margin-bottom: 16px;
     direction: rtl;
     color: var(--color-text);
@@ -28,14 +28,14 @@
   }
   
   .english {
-    font-size: 1.125rem;
+    font-size: 2rem;
     margin-bottom: 12px;
     color: var(--color-text);
     animation: fadeIn 1s ease-in;
   }
   
   .reference {
-    font-size: 0.9rem;
+    font-size: 2rem;
     color: var(--color-secondary);
     animation: fadeIn 1s ease-in;
   }

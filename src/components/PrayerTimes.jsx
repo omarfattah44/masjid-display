@@ -1,4 +1,3 @@
-// src/components/PrayerTimes.jsx
 import React, { useEffect, useState } from "react";
 import {
   FaMosque,
@@ -16,23 +15,32 @@ export default function PrayerTimes() {
   const [nextPrayer, setNextPrayer] = useState(null);
   const [error, setError] = useState(null);
 
-  // Map prayer names to icons
+  // Icon lookup for each prayer
   const iconMap = {
-    Fajr: FaMosque,
-    Dhuhr: FaSun,
-    Asr: FaCloudSun,
+    Fajr:    FaMosque,
+    Dhuhr:   FaSun,
+    Asr:     FaCloudSun,
     Maghrib: FaMoon,
-    Isha: FaStarAndCrescent,
+    Isha:    FaStarAndCrescent,
+    "Jummah Khutba": FaMosque,
   };
+
+  // Helper to add minutes to "HH:MM"
+  function addMinutes(time, mins) {
+    const [h, m] = time.split(":").map(Number);
+    const dt = new Date();
+    dt.setHours(h, m + mins, 0, 0);
+    const hh = dt.getHours().toString().padStart(2, "0");
+    const mm = dt.getMinutes().toString().padStart(2, "0");
+    return `${hh}:${mm}`;
+  }
 
   useEffect(() => {
     async function fetchAndCompute() {
       try {
-        const city    = encodeURIComponent("Santa Maria");
-        const country = encodeURIComponent("USA");
-        const method  = 2;
-        const url     = `https://api.aladhan.com/v1/timingsByCity?city=${city}&country=${country}&method=${method}`;
-
+        const url = `https://api.aladhan.com/v1/timingsByCity?city=${encodeURIComponent(
+          "Santa Maria"
+        )}&country=USA&method=2`;
         const res  = await fetch(url);
         const json = await res.json();
         if (json.code !== 200) throw new Error(json.status);
@@ -40,25 +48,20 @@ export default function PrayerTimes() {
         const t = json.data.timings;
         setTimings(t);
 
-        const order = ["Fajr","Dhuhr","Asr","Maghrib","Isha"];
+        const order = ["Fajr","Dhuhr","Asr","Maghrib","Isha","Jummah Khutba"];
         const now   = new Date();
         let foundCurrent = null;
         let foundNext    = null;
 
-        for (let i = 0; i < order.length; i++) {
-          const name = order[i];
-          const [h, m] = t[name].split(":").map(Number);
+        for (const prayer of order) {
+          const adhan = prayer === "Jummah Khutba" ? t.Dhuhr : t[prayer];
+          const [h, m] = adhan.split(":").map(Number);
           const dt = new Date(now);
           dt.setHours(h, m, 0, 0);
 
-          if (dt <= now) {
-            foundCurrent = name;
-          }
-          if (!foundNext && dt > now) {
-            foundNext = name;
-          }
+          if (dt <= now) foundCurrent = prayer;
+          if (!foundNext && dt > now) foundNext = prayer;
         }
-
         if (!foundNext) foundNext = "Fajr";
 
         setCurrentPrayer(foundCurrent);
@@ -70,8 +73,8 @@ export default function PrayerTimes() {
     }
 
     fetchAndCompute();
-    const interval = setInterval(fetchAndCompute, 300000); // refresh every 5 minutes
-    return () => clearInterval(interval);
+    const iv = setInterval(fetchAndCompute, 300000); // refresh every 5m
+    return () => clearInterval(iv);
   }, []);
 
   if (error) {
@@ -82,7 +85,6 @@ export default function PrayerTimes() {
       </div>
     );
   }
-
   if (!timings) {
     return (
       <div className={styles.container}>
@@ -92,7 +94,12 @@ export default function PrayerTimes() {
     );
   }
 
-  const order = ["Fajr","Dhuhr","Asr","Maghrib","Isha"];
+  // Compute Iqāmah times
+  const fajrIqama = addMinutes(timings.Fajr, 40);
+  const duhrIqama = "13:30";
+  const ishaIqama = addMinutes(timings.Isha, 10);
+
+  const order = ["Fajr","Dhuhr","Asr","Maghrib","Isha","Jummah Khutba"];
 
   return (
     <div className={styles.container}>
@@ -100,22 +107,53 @@ export default function PrayerTimes() {
       <div className={styles.list}>
         {order.map((prayer) => {
           const Icon = iconMap[prayer] || FaTrafficLight;
-          const isCurrent = prayer === currentPrayer;
-          const isNext    = prayer === nextPrayer;
+          const adhan = prayer === "Jummah Khutba" ? timings.Dhuhr : timings[prayer];
+          const isCur = prayer === currentPrayer;
+          const isNxt = prayer === nextPrayer;
 
           return (
             <div
               key={prayer}
               className={`${styles.timeCard} ${
-                isCurrent ? styles.current :
-                isNext    ? styles.next : ""
+                isCur ? styles.current : isNxt ? styles.next : ""
               }`}
             >
               <Icon className={styles.icon} />
               <div className={styles.prayerName}>{prayer}</div>
-              <div className={styles.time}>{timings[prayer]}</div>
-              {isCurrent && <div>Current</div>}
-              {isNext    && <div style={{ color: "var(--color-secondary)" }}>Next</div>}
+              <div className={styles.time}>{adhan}</div>
+
+              {prayer === "Jummah Khutba" && (
+                <div className={styles.iqamaContainer}>
+                  <div className={styles.iqamaLabel}>Khutbah</div>
+                  <div className={styles.iqamaTime}>13:40</div>
+                  <div className={styles.iqamaLabel}>Salah</div>
+                  <div className={styles.iqamaTime}>14:10</div>
+                </div>
+              )}
+
+              {prayer === "Fajr" && (
+                <div className={styles.iqamaContainer}>
+                  <div className={styles.iqamaLabel}>Iqama</div>
+                  <div className={styles.iqamaTime}>{fajrIqama}</div>
+                </div>
+              )}
+              {prayer === "Dhuhr" && (
+                <div className={styles.iqamaContainer}>
+                  <div className={styles.iqamaLabel}>Iqama</div>
+                  <div className={styles.iqamaTime}>{duhrIqama}</div>
+                </div>
+              )}
+              {prayer === "Isha" && (
+                <div className={styles.iqamaContainer}>
+                  <div className={styles.iqamaLabel}>Iqama</div>
+                  <div className={styles.iqamaTime}>{ishaIqama}</div>
+                </div>
+              )}
+
+              {isCur && <div>Current</div>}
+              {isNxt && (
+                <div style={{ color: "var(--color-secondary)" }}>Next</div>
+              )}
             </div>
           );
         })}
@@ -123,5 +161,3 @@ export default function PrayerTimes() {
     </div>
   );
 }
-
-

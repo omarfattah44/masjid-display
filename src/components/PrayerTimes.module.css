@@ -1,6 +1,6 @@
 /* src/components/PrayerTimes.module.css */
 
-/* 1) Ensure the card is the tallest */
+/* 1) Make this the tallest card */
 .container {
   padding: 16px;
   min-height: 400px;            
@@ -11,19 +11,19 @@
 /* 2) Title styling */
 .title {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin-bottom: 16px;
   text-align: center;
   color: var(--color-primary);
 }
 
-/* 3) Layout exactly five equal columns */
+/* 3) Grid that adapts to any number of cards */
 .list {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);  /* five equal-width columns */
-  gap: 16px;                               /* space between each */
-  flex-grow: 1;                            /* fill remaining height */
-  min-width: 0;                            /* allow items to shrink */
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  flex-grow: 1;    
+  min-width: 0;    
 }
 
 /* 4) Individual prayer card */
@@ -34,29 +34,75 @@
   padding: 12px;
   text-align: center;
   transition: border-color 0.3s, box-shadow 0.3s;
-  min-width: 0;                            /* prevent overflow due to content */
+  min-width: 0;
 }
 
-/* 5) Icon styling */
+/* 5) Icon above prayer name */
 .icon {
   font-size: 1.5rem;
   margin-bottom: 8px;
   color: var(--color-secondary);
 }
 
-/* 6) Prayer name & time with ellipsis on overflow */
-.prayerName,
+/* 6) Prayer name */
+.prayerName {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 8px; /* Add space below the Iqama text */
+}
+
+/* 7) Adhān time */
 .time {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 4rem;
+  font-weight: bold;
+  color: var(--color-primary);
+  margin-top: 12px; /* Add space above the prayer time */
+  margin-bottom: 20px; /* Add space below the prayer time */
 }
 
-/* 7) Highlight styles */
+/* Iqama text styling */
+.iqama {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 4rem; /* Match the size of the prayer time */
+  font-weight: bold; /* Make it bold for emphasis */
+  color: var(--color-primary); /* Optional: Add color for consistency */
+  margin-top: 12px; /* Add spacing above */
+}
+
+/* Container for Iqama label and time */
+.iqamaContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 12px; /* Add spacing above the Iqama container */
+}
+
+/* Iqama label styling */
+.iqamaLabel {
+  font-size: 2rem; /* Match the size of the prayer name */
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+/* Iqama time styling */
+.iqamaTime {
+  font-size: 4rem; /* Match the size of the prayer time */
+  font-weight: bold;
+  color: var(--color-secondary);
+}
+
+/* 8) Highlight current/next */
 .timeCard.current {
   border: 2px solid var(--color-primary);
 }
 .timeCard.next {
   border: 2px solid var(--color-secondary);
 }
-

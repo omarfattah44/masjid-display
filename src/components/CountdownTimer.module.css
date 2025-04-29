@@ -12,8 +12,10 @@
   
   .label {
     margin-top: 12px;
+    margin-bottom: 20px;
     font-family: var(--font-heading);
-    font-size: 1.5rem;
+    font-size: 2rem;
+    font-weight: bold;
     color: var(--color-primary);
   }
   

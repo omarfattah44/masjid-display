@@ -2,6 +2,7 @@
 
 /* 1) Import fonts */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
 
 /* 2) Design tokens */
 :root {
@@ -28,21 +29,20 @@ html, body, #root {
   color: var(--color-text);
 }
 
-/* 4) App wrapper */
+/* 4) App wrapper now full width */
 .app-container {
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
   padding: 24px;
 }
 
-/* 5) Stack cards vertically in fixed order */
+/* 5) Stack cards vertically */
 .grid-layout {
   display: flex;
   flex-direction: column;
   gap: 24px;
 }
 
-/* 6) Utility card style (for non-module use) */
+/* 6) Utility card style */
 .card {
   background: var(--color-card-bg);
   border-radius: 8px;
